@@ -18,5 +18,31 @@ namespace PhotoEditor {
             AboutDialog d = new AboutDialog();
             d.ShowDialog();
         }
+
+        private void switchViewMode(int v) {
+            detailsToolStripMenuItem.Checked = false;
+            smallToolStripMenuItem.Checked = false;
+            largeToolStripMenuItem.Checked = false;
+
+            if (v == 0) {
+                largeToolStripMenuItem.Checked = true;
+            } else if (v == 1) {
+                smallToolStripMenuItem.Checked = true;
+            } else {
+                detailsToolStripMenuItem.Checked = true;
+            }
+        }
+
+        private void largeToolStripMenuItem_Click(object sender, EventArgs e) {
+            switchViewMode(0);
+        }
+
+        private void smallToolStripMenuItem_Click(object sender, EventArgs e) {
+            switchViewMode(1);
+        }
+
+        private void detailsToolStripMenuItem_Click(object sender, EventArgs e) {
+            switchViewMode(2);
+        }
     }
 }
