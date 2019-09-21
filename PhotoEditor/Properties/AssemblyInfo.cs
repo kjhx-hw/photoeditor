@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Photo Editor")]
-[assembly: AssemblyDescription("A basic photo editor written in C# by Noah Furby and Kyle Huggins. License MIT.")]
+[assembly: AssemblyDescription("A basic photo editor written in C# by Noah Furby and Kyle Huggins. Click on an image to open it in the Editor and apply transformations. License MIT.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Harding University COMP 4450")]
 [assembly: AssemblyProduct("Photo Editor")]
