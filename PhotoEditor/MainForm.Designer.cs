@@ -53,7 +53,7 @@
             this.debugToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1474, 42);
+            this.menuStrip1.Size = new System.Drawing.Size(1474, 40);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -129,7 +129,7 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 42);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 40);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -139,7 +139,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.listView);
-            this.splitContainer1.Size = new System.Drawing.Size(1474, 887);
+            this.splitContainer1.Size = new System.Drawing.Size(1474, 889);
             this.splitContainer1.SplitterDistance = 491;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -149,7 +149,7 @@
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(491, 887);
+            this.treeView.Size = new System.Drawing.Size(491, 889);
             this.treeView.TabIndex = 0;
             // 
             // listView
@@ -158,7 +158,7 @@
             this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(0, 0);
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(979, 887);
+            this.listView.Size = new System.Drawing.Size(979, 889);
             this.listView.TabIndex = 0;
             this.listView.UseCompatibleStateImageBehavior = false;
             // 

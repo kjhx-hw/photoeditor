@@ -32,11 +32,14 @@ namespace PhotoEditor {
                     currentNode.Nodes.Add(childDirectoryNode);
                     stack.Push(childDirectoryNode);
                 }
+
+                // We don't need to show files.
                 //foreach (var file in directoryInfo.GetFiles())
-                  //  currentNode.Nodes.Add(new TreeNode(file.Name));
+                //    currentNode.Nodes.Add(new TreeNode(file.Name));
             }
 
             treeView.Nodes.Add(node);
+            treeView.Nodes[0].Expand();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
