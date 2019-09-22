@@ -30,11 +30,14 @@ namespace PhotoEditor {
             var node = new TreeNode(rootDirectory.Name) { Tag = rootDirectory };
             stack.Push(node);
 
-            ImageList thumbs = new ImageList();
-            thumbs.ImageSize = new Size(128, 128);
+            ImageList smallThumbs = new ImageList();
+            smallThumbs.ImageSize = new Size(32, 32);
 
-            listView.SmallImageList = thumbs;
-            listView.LargeImageList = thumbs;
+            ImageList largeThumbs = new ImageList();
+            largeThumbs.ImageSize = new Size(128, 128);
+
+            listView.SmallImageList = smallThumbs;
+            listView.LargeImageList = largeThumbs;
 
             while (stack.Count > 0) {
                 var currentNode = stack.Pop();
@@ -48,14 +51,14 @@ namespace PhotoEditor {
                 foreach (var file in directoryInfo.GetFiles()) {
                     string fileExtension = file.Extension;
                     fileExtension = fileExtension.ToLower();
-                    var images = new ImageList();
 
                     if (file.Extension == ".jpg" || file.Extension == ".jpeg") {
                         byte[] bytes = System.IO.File.ReadAllBytes(file.FullName);
                         MemoryStream ms = new MemoryStream(bytes);
                         Image image = Image.FromStream(ms);
 
-                        thumbs.Images.Add(file.FullName, image);
+                        smallThumbs.Images.Add(file.FullName, image);
+                        largeThumbs.Images.Add(file.FullName, image);
 
                         ListViewItem item = new ListViewItem {
                             Text = file.Name,
@@ -79,23 +82,26 @@ namespace PhotoEditor {
         private void selectNewDirectory(DirectoryInfo directoryInfo) {
             listView.Items.Clear();
 
-            ImageList thumbs = new ImageList();
-            thumbs.ImageSize = new Size(128, 128);
+            ImageList smallThumbs = new ImageList();
+            smallThumbs.ImageSize = new Size(32, 32);
 
-            listView.SmallImageList = thumbs;
-            listView.LargeImageList = thumbs;
+            ImageList largeThumbs = new ImageList();
+            largeThumbs.ImageSize = new Size(128, 128);
+
+            listView.SmallImageList = smallThumbs;
+            listView.LargeImageList = largeThumbs;
 
             foreach (var file in directoryInfo.GetFiles()) {
                 string fileExtension = file.Extension;
                 fileExtension = fileExtension.ToLower();
-                var images = new ImageList();
 
                 if (file.Extension == ".jpg" || file.Extension == ".jpeg") {
                     byte[] bytes = System.IO.File.ReadAllBytes(file.FullName);
                     MemoryStream ms = new MemoryStream(bytes);
                     Image image = Image.FromStream(ms);
 
-                    thumbs.Images.Add(file.FullName, image);
+                    smallThumbs.Images.Add(file.FullName, image);
+                    largeThumbs.Images.Add(file.FullName, image);
 
                     ListViewItem item = new ListViewItem {
                         Text = file.Name,
