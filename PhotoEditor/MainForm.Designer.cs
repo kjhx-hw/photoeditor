@@ -25,14 +25,16 @@
         private void InitializeComponent() {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.locateOnDiskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectRootFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.largeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openEditorFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.treeListSplitter = new System.Windows.Forms.SplitContainer();
             this.treeView = new System.Windows.Forms.TreeView();
             this.listView = new System.Windows.Forms.ListView();
@@ -55,19 +57,48 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.viewToolStripMenuItem,
-            this.helpToolStripMenuItem,
-            this.debugToolStripMenuItem});
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1474, 40);
+            this.menuStrip1.Size = new System.Drawing.Size(1474, 42);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.locateOnDiskToolStripMenuItem,
+            this.selectRootFolderToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 36);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 38);
             this.fileToolStripMenuItem.Text = "File";
+            // 
+            // locateOnDiskToolStripMenuItem
+            // 
+            this.locateOnDiskToolStripMenuItem.Name = "locateOnDiskToolStripMenuItem";
+            this.locateOnDiskToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.locateOnDiskToolStripMenuItem.Text = "Locate on Disk";
+            this.locateOnDiskToolStripMenuItem.Click += new System.EventHandler(this.locateOnDiskToolStripMenuItem_Click);
+            // 
+            // selectRootFolderToolStripMenuItem
+            // 
+            this.selectRootFolderToolStripMenuItem.Name = "selectRootFolderToolStripMenuItem";
+            this.selectRootFolderToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.selectRootFolderToolStripMenuItem.Text = "Select Root Folder...";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(321, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -76,7 +107,7 @@
             this.smallToolStripMenuItem,
             this.largeToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(78, 36);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(78, 38);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // detailsToolStripMenuItem
@@ -107,7 +138,7 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(77, 36);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(77, 38);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
@@ -116,21 +147,6 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(179, 38);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // debugToolStripMenuItem
-            // 
-            this.debugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openEditorFormToolStripMenuItem});
-            this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
-            this.debugToolStripMenuItem.Size = new System.Drawing.Size(99, 36);
-            this.debugToolStripMenuItem.Text = "Debug";
-            // 
-            // openEditorFormToolStripMenuItem
-            // 
-            this.openEditorFormToolStripMenuItem.Name = "openEditorFormToolStripMenuItem";
-            this.openEditorFormToolStripMenuItem.Size = new System.Drawing.Size(297, 38);
-            this.openEditorFormToolStripMenuItem.Text = "Open EditorForm";
-            this.openEditorFormToolStripMenuItem.Click += new System.EventHandler(this.openEditorFormToolStripMenuItem_Click);
             // 
             // treeListSplitter
             // 
@@ -145,7 +161,7 @@
             // treeListSplitter.Panel2
             // 
             this.treeListSplitter.Panel2.Controls.Add(this.listView);
-            this.treeListSplitter.Size = new System.Drawing.Size(1474, 863);
+            this.treeListSplitter.Size = new System.Drawing.Size(1474, 861);
             this.treeListSplitter.SplitterDistance = 400;
             this.treeListSplitter.SplitterWidth = 10;
             this.treeListSplitter.TabIndex = 1;
@@ -156,7 +172,7 @@
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(400, 863);
+            this.treeView.Size = new System.Drawing.Size(400, 861);
             this.treeView.TabIndex = 0;
             this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_NodeMouseClick);
             // 
@@ -166,7 +182,7 @@
             this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(0, 0);
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(1064, 863);
+            this.listView.Size = new System.Drawing.Size(1064, 861);
             this.listView.TabIndex = 0;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.ItemActivate += new System.EventHandler(this.listView_ItemActivate);
@@ -183,18 +199,20 @@
             // 
             this.horizontalSplitter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.horizontalSplitter.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.horizontalSplitter.Location = new System.Drawing.Point(0, 40);
+            this.horizontalSplitter.IsSplitterFixed = true;
+            this.horizontalSplitter.Location = new System.Drawing.Point(0, 42);
             this.horizontalSplitter.Name = "horizontalSplitter";
             this.horizontalSplitter.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // horizontalSplitter.Panel1
             // 
             this.horizontalSplitter.Panel1.Controls.Add(this.progressBar1);
+            this.horizontalSplitter.Panel1MinSize = 15;
             // 
             // horizontalSplitter.Panel2
             // 
             this.horizontalSplitter.Panel2.Controls.Add(this.treeListSplitter);
-            this.horizontalSplitter.Size = new System.Drawing.Size(1474, 889);
+            this.horizontalSplitter.Size = new System.Drawing.Size(1474, 887);
             this.horizontalSplitter.SplitterDistance = 25;
             this.horizontalSplitter.SplitterWidth = 1;
             this.horizontalSplitter.TabIndex = 3;
@@ -241,10 +259,12 @@
         private System.Windows.Forms.ToolStripMenuItem smallToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem largeToolStripMenuItem;
         private System.Windows.Forms.ListView listView;
-        private System.Windows.Forms.ToolStripMenuItem debugToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openEditorFormToolStripMenuItem;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.SplitContainer horizontalSplitter;
+        private System.Windows.Forms.ToolStripMenuItem locateOnDiskToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectRootFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 

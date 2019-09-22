@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -96,11 +97,6 @@ namespace PhotoEditor {
             switchViewMode(2);
         }
 
-        private void openEditorFormToolStripMenuItem_Click(object sender, EventArgs e) {
-            EditorForm eF = new EditorForm("black.jpg");
-            eF.ShowDialog();
-        }
-
         private void treeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e) {
 
         }
@@ -112,6 +108,22 @@ namespace PhotoEditor {
 
             EditorForm editorForm = new EditorForm(filePath);
             editorForm.ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
+            Close();
+        }
+
+        private void locateOnDiskToolStripMenuItem_Click(object sender, EventArgs e) {
+            string filePath = null;
+
+            try {
+                filePath = listView.SelectedItems[0].ImageKey.ToString();
+                filePath = filePath.Replace(listView.SelectedItems[0].Name.ToString(), "");
+                Process.Start(filePath);
+            } catch (ArgumentOutOfRangeException) {
+                MessageBox.Show("No file selected.");
+            }
         }
     }
 }
