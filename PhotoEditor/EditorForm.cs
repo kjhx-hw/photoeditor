@@ -64,7 +64,7 @@ namespace PhotoEditor
                 
             });
             Enabled = true;
-            Focus();
+            Activate();
         }
 
         async private Task invertPhoto()
@@ -89,13 +89,12 @@ namespace PhotoEditor
                 loadingScreen.Close();
             });
             Enabled = true;
-            Focus();
+            Activate();
         }
 
         async private Task colorChanger(float red, float green, float blue)
         {
             ProgressScreen loadingScreen = new ProgressScreen(0, transformedBitmap.Height);
-            Enabled = false;
             await Task.Run(() =>
             {
                   
@@ -119,8 +118,6 @@ namespace PhotoEditor
                 loadingScreen.Close();
               
             });
-            Enabled = true;
-            Focus();
         }
 
         private void EditorForm_Load(object sender, EventArgs e)
@@ -137,26 +134,50 @@ namespace PhotoEditor
         {
             if(colorDialog1.ShowDialog() == DialogResult.OK)
             {
+                /*                groupBox1.Enabled = false;
+                                button1.Enabled = false;
+                                button2.Enabled = false;
+                                button3.Enabled = false;
+                                Button4.Enabled = false;*/
+                Enabled = false;
                 await colorChanger(colorDialog1.Color.R, colorDialog1.Color.G, colorDialog1.Color.B);
                 photoBox.Image = transformedBitmap;
+                Enabled = true;
+                Activate();
+                /*                groupBox1.Enabled = true;
+                                button1.Enabled = true;
+                                button2.Enabled = true;
+                                button3.Enabled = true;
+                                Button4.Enabled = true;*/
             }
         }
 
         async private void TrackBar1_Scroll(object sender, EventArgs e)
         {
-            await slider();
-            photoBox.Image = transformedBitmap;
+           
         }
 
         async private void InvertButton(object sender, EventArgs e)
         {
+            groupBox1.Enabled = false;
+            button1.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
+            Button4.Enabled = false;
             await invertPhoto();
+            groupBox1.Enabled = true;
+            button1.Enabled = true;
+            button2.Enabled = true;
+            button3.Enabled = true;
+            Button4.Enabled = true;
             photoBox.Image = transformedBitmap;
         }
 
         async private void TrackBar1_MouseUp(object sender, MouseEventArgs e)
         {
-            //here            
+            
+            await slider();
+            photoBox.Image = transformedBitmap;
         }
 
         private void Button2_Click(object sender, EventArgs e)
