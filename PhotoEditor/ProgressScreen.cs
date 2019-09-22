@@ -22,15 +22,16 @@ namespace PhotoEditor
         public void UpdateProgressBar(int index)
         {
             if (this.progressBar1.Value == this.progressBar1.Maximum)
-                this.Close();
+                this.progressBar1.Visible = true;
             else
                 this.progressBar1.Value += 1;
             this.progressBar1.Visible = true;
+            this.Show();
         }
 
         private void ProgressScreen_Load(object sender, EventArgs e)
         {
-
+           
         }
 
         private void Button1_Click(object sender, EventArgs e)
