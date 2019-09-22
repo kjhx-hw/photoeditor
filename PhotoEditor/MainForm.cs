@@ -31,6 +31,10 @@ namespace PhotoEditor {
             stack.Push(node);
 
             ImageList thumbs = new ImageList();
+            thumbs.ImageSize = new Size(128, 128);
+
+            listView.SmallImageList = thumbs;
+            listView.LargeImageList = thumbs;
 
             while (stack.Count > 0) {
                 var currentNode = stack.Pop();
@@ -47,6 +51,12 @@ namespace PhotoEditor {
                     var images = new ImageList();
 
                     if (file.Extension == ".jpg" || file.Extension == ".jpeg") {
+                        byte[] bytes = System.IO.File.ReadAllBytes(file.FullName);
+                        MemoryStream ms = new MemoryStream(bytes);
+                        Image image = Image.FromStream(ms);
+
+                        thumbs.Images.Add(file.FullName, image);
+
                         ListViewItem item = new ListViewItem {
                             Text = file.Name,
                             Name = file.Name,
@@ -69,17 +79,29 @@ namespace PhotoEditor {
         private void selectNewDirectory(DirectoryInfo directoryInfo) {
             listView.Items.Clear();
 
+            ImageList thumbs = new ImageList();
+            thumbs.ImageSize = new Size(128, 128);
+
+            listView.SmallImageList = thumbs;
+            listView.LargeImageList = thumbs;
+
             foreach (var file in directoryInfo.GetFiles()) {
                 string fileExtension = file.Extension;
                 fileExtension = fileExtension.ToLower();
                 var images = new ImageList();
 
                 if (file.Extension == ".jpg" || file.Extension == ".jpeg") {
+                    byte[] bytes = System.IO.File.ReadAllBytes(file.FullName);
+                    MemoryStream ms = new MemoryStream(bytes);
+                    Image image = Image.FromStream(ms);
+
+                    thumbs.Images.Add(file.FullName, image);
+
                     ListViewItem item = new ListViewItem {
-                    Text = file.Name,
-                    Name = file.Name,
-                    ToolTipText = file.FullName,
-                    ImageKey = file.FullName
+                        Text = file.Name,
+                        Name = file.Name,
+                        ToolTipText = file.FullName,
+                        ImageKey = file.FullName
                     };
 
                     item.SubItems.Add(file.LastWriteTime.ToString());
