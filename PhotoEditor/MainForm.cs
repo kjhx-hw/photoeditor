@@ -66,6 +66,30 @@ namespace PhotoEditor {
             treeView.Nodes[0].Expand();
         }
 
+        private void selectNewDirectory(DirectoryInfo directoryInfo) {
+            listView.Items.Clear();
+
+            foreach (var file in directoryInfo.GetFiles()) {
+                string fileExtension = file.Extension;
+                fileExtension = fileExtension.ToLower();
+                var images = new ImageList();
+
+                if (file.Extension == ".jpg" || file.Extension == ".jpeg") {
+                    ListViewItem item = new ListViewItem {
+                    Text = file.Name,
+                    Name = file.Name,
+                    ToolTipText = file.FullName,
+                    ImageKey = file.FullName
+                    };
+
+                    item.SubItems.Add(file.LastWriteTime.ToString());
+                    item.SubItems.Add((file.Length / (float)1024 / (float)1024).ToString() + "mb");
+
+                    listView.Items.Add(item);
+                }
+            }
+        }
+
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
             AboutDialog d = new AboutDialog();
             d.ShowDialog();
@@ -101,7 +125,7 @@ namespace PhotoEditor {
         }
 
         private void treeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e) {
-
+            //
         }
 
         private void listView_ItemActivate(object sender, EventArgs e) {
@@ -136,6 +160,11 @@ namespace PhotoEditor {
             if (result == DialogResult.OK) {
                 // switch root directory
             }
+        }
+
+        private void treeView_AfterSelect(object sender, TreeViewEventArgs e) {
+            TreeNode selectedNode = treeView.SelectedNode;
+            selectNewDirectory((DirectoryInfo)selectedNode.Tag);
         }
     }
 }
