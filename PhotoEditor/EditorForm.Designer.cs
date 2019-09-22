@@ -38,6 +38,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.Button4 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.photoBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -104,7 +105,7 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "Color...";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.button1.Click += new System.EventHandler(this.ColorPicker);
             // 
             // button2
             // 
@@ -182,5 +183,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button Button4;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }

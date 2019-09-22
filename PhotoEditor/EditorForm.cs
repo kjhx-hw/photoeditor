@@ -41,6 +41,27 @@ namespace PhotoEditor
             });
         }
 
+        async private Task colorChanger(float red, float green, float blue)
+        {
+            await Task.Run(() =>
+            {
+                for (int y = 0; y < transformedBitmap.Height; y++)
+                {
+                    for (int x = 0; x < transformedBitmap.Width; x++)
+                    {
+                        Color color = transformedBitmap.GetPixel(x, y);
+                        int newRed = Math.Abs(color.R - 255);
+                        int newGreen = Math.Abs(color.G - 255);
+                        int newBlue = Math.Abs(color.B - 255);
+                        float total = (newRed + newGreen + newBlue) / 3;
+                        total /= 255;
+                        Color newColor = Color.FromArgb((int)(red * total), (int)(green * total), (int)(total * blue));
+                        transformedBitmap.SetPixel(x, y, newColor);
+                    }
+                }
+            });
+        }
+
         private void EditorForm_Load(object sender, EventArgs e)
         {
 
@@ -51,9 +72,13 @@ namespace PhotoEditor
 
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        async private void ColorPicker(object sender, EventArgs e)
         {
-
+            if(colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                await colorChanger(colorDialog1.Color.R, colorDialog1.Color.G, colorDialog1.Color.B);
+                photoBox.Image = transformedBitmap;
+            }
         }
 
         async private void TrackBar1_Scroll(object sender, EventArgs e)
@@ -64,6 +89,7 @@ namespace PhotoEditor
         async private void InvertButton(object sender, EventArgs e)
         {
             await invertPhoto();
+            photoBox.Image = transformedBitmap;
         }
     }
 }
