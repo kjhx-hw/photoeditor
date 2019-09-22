@@ -158,7 +158,7 @@ namespace PhotoEditor {
             DialogResult result = folderBrowser.ShowDialog();
 
             if (result == DialogResult.OK) {
-                // switch root directory
+                ListDirectory(treeView, folderBrowser.SelectedPath.ToString());
             }
         }
 
