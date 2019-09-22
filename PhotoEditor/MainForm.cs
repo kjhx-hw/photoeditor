@@ -54,6 +54,9 @@ namespace PhotoEditor {
                             ImageKey = file.FullName
                         };
 
+                        item.SubItems.Add(file.LastWriteTime.ToString());
+                        item.SubItems.Add((file.Length / (float)1024 / (float)1024).ToString() + "mb");
+
                         listView.Items.Add(item);
                     }
                 }
@@ -123,6 +126,15 @@ namespace PhotoEditor {
                 Process.Start(filePath);
             } catch (ArgumentOutOfRangeException) {
                 MessageBox.Show("No file selected.");
+            }
+        }
+
+        private void selectRootFolderToolStripMenuItem_Click(object sender, EventArgs e) {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            DialogResult result = folderBrowser.ShowDialog();
+
+            if (result == DialogResult.OK) {
+                // switch root directory
             }
         }
     }

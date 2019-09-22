@@ -40,6 +40,7 @@
             this.listView = new System.Windows.Forms.ListView();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.horizontalSplitter = new System.Windows.Forms.SplitContainer();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treeListSplitter)).BeginInit();
             this.treeListSplitter.Panel1.SuspendLayout();
@@ -60,7 +61,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1474, 42);
+            this.menuStrip1.Size = new System.Drawing.Size(1474, 40);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -78,25 +79,27 @@
             // locateOnDiskToolStripMenuItem
             // 
             this.locateOnDiskToolStripMenuItem.Name = "locateOnDiskToolStripMenuItem";
-            this.locateOnDiskToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.locateOnDiskToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.locateOnDiskToolStripMenuItem.Size = new System.Drawing.Size(349, 38);
             this.locateOnDiskToolStripMenuItem.Text = "Locate on Disk";
             this.locateOnDiskToolStripMenuItem.Click += new System.EventHandler(this.locateOnDiskToolStripMenuItem_Click);
             // 
             // selectRootFolderToolStripMenuItem
             // 
             this.selectRootFolderToolStripMenuItem.Name = "selectRootFolderToolStripMenuItem";
-            this.selectRootFolderToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.selectRootFolderToolStripMenuItem.Size = new System.Drawing.Size(349, 38);
             this.selectRootFolderToolStripMenuItem.Text = "Select Root Folder...";
+            this.selectRootFolderToolStripMenuItem.Click += new System.EventHandler(this.selectRootFolderToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(321, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(346, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(349, 38);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -161,7 +164,7 @@
             // treeListSplitter.Panel2
             // 
             this.treeListSplitter.Panel2.Controls.Add(this.listView);
-            this.treeListSplitter.Size = new System.Drawing.Size(1474, 861);
+            this.treeListSplitter.Size = new System.Drawing.Size(1474, 863);
             this.treeListSplitter.SplitterDistance = 400;
             this.treeListSplitter.SplitterWidth = 10;
             this.treeListSplitter.TabIndex = 1;
@@ -172,7 +175,7 @@
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(400, 861);
+            this.treeView.Size = new System.Drawing.Size(400, 863);
             this.treeView.TabIndex = 0;
             this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_NodeMouseClick);
             // 
@@ -182,7 +185,7 @@
             this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(0, 0);
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(1064, 861);
+            this.listView.Size = new System.Drawing.Size(1064, 863);
             this.listView.TabIndex = 0;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.ItemActivate += new System.EventHandler(this.listView_ItemActivate);
@@ -200,7 +203,7 @@
             this.horizontalSplitter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.horizontalSplitter.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.horizontalSplitter.IsSplitterFixed = true;
-            this.horizontalSplitter.Location = new System.Drawing.Point(0, 42);
+            this.horizontalSplitter.Location = new System.Drawing.Point(0, 40);
             this.horizontalSplitter.Name = "horizontalSplitter";
             this.horizontalSplitter.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -212,10 +215,15 @@
             // horizontalSplitter.Panel2
             // 
             this.horizontalSplitter.Panel2.Controls.Add(this.treeListSplitter);
-            this.horizontalSplitter.Size = new System.Drawing.Size(1474, 887);
+            this.horizontalSplitter.Size = new System.Drawing.Size(1474, 889);
             this.horizontalSplitter.SplitterDistance = 25;
             this.horizontalSplitter.SplitterWidth = 1;
             this.horizontalSplitter.TabIndex = 3;
+            // 
+            // folderBrowserDialog
+            // 
+            this.folderBrowserDialog.RootFolder = System.Environment.SpecialFolder.MyPictures;
+            this.folderBrowserDialog.ShowNewFolderButton = false;
             // 
             // MainForm
             // 
@@ -265,6 +273,7 @@
         private System.Windows.Forms.ToolStripMenuItem selectRootFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
     }
 }
 
