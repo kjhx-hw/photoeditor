@@ -13,6 +13,11 @@ namespace PhotoEditor {
     public partial class MainForm : Form {
         public MainForm() {
             InitializeComponent();
+
+            listView.Columns.Add("Name").Width = 250;
+            listView.Columns.Add("Last Modified").Width = 150;
+            listView.Columns.Add("File Size").Width = 75;
+
             ListDirectory(treeView, Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
         }
 
@@ -24,6 +29,8 @@ namespace PhotoEditor {
             var node = new TreeNode(rootDirectory.Name) { Tag = rootDirectory };
             stack.Push(node);
 
+            ImageList thumbs = new ImageList();
+
             while (stack.Count > 0) {
                 var currentNode = stack.Pop();
                 var directoryInfo = (DirectoryInfo)currentNode.Tag;
@@ -33,9 +40,22 @@ namespace PhotoEditor {
                     stack.Push(childDirectoryNode);
                 }
 
-                // We don't need to show files.
-                //foreach (var file in directoryInfo.GetFiles())
-                //    currentNode.Nodes.Add(new TreeNode(file.Name));
+                foreach (var file in directoryInfo.GetFiles()) {
+                    string fileExtension = file.Extension;
+                    fileExtension = fileExtension.ToLower();
+                    var images = new ImageList();
+
+                    if (file.Extension == ".jpg" || file.Extension == ".jpeg") {
+                        ListViewItem item = new ListViewItem {
+                            Text = file.Name,
+                            Name = file.Name,
+                            ToolTipText = file.FullName,
+                            ImageKey = file.FullName
+                        };
+
+                        listView.Items.Add(item);
+                    }
+                }
             }
 
             treeView.Nodes.Add(node);
@@ -54,10 +74,13 @@ namespace PhotoEditor {
 
             if (v == 0) {
                 largeToolStripMenuItem.Checked = true;
+                listView.View = View.LargeIcon;
             } else if (v == 1) {
                 smallToolStripMenuItem.Checked = true;
+                listView.View = View.SmallIcon;
             } else {
                 detailsToolStripMenuItem.Checked = true;
+                listView.View = View.Details;
             }
         }
 
@@ -74,8 +97,21 @@ namespace PhotoEditor {
         }
 
         private void openEditorFormToolStripMenuItem_Click(object sender, EventArgs e) {
-            EditorForm eF = new EditorForm();
+            EditorForm eF = new EditorForm("black.jpg");
             eF.ShowDialog();
+        }
+
+        private void treeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e) {
+
+        }
+
+        private void listView_ItemActivate(object sender, EventArgs e) {
+            string filePath = listView.SelectedItems[0].ImageKey.ToString();
+
+            Console.WriteLine("Opening file: " + filePath);
+
+            EditorForm editorForm = new EditorForm(filePath);
+            editorForm.ShowDialog();
         }
     }
 }

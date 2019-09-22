@@ -128,7 +128,7 @@
             // openEditorFormToolStripMenuItem
             // 
             this.openEditorFormToolStripMenuItem.Name = "openEditorFormToolStripMenuItem";
-            this.openEditorFormToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.openEditorFormToolStripMenuItem.Size = new System.Drawing.Size(297, 38);
             this.openEditorFormToolStripMenuItem.Text = "Open EditorForm";
             this.openEditorFormToolStripMenuItem.Click += new System.EventHandler(this.openEditorFormToolStripMenuItem_Click);
             // 
@@ -158,6 +158,7 @@
             this.treeView.Name = "treeView";
             this.treeView.Size = new System.Drawing.Size(400, 863);
             this.treeView.TabIndex = 0;
+            this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_NodeMouseClick);
             // 
             // listView
             // 
@@ -168,13 +169,14 @@
             this.listView.Size = new System.Drawing.Size(1064, 863);
             this.listView.TabIndex = 0;
             this.listView.UseCompatibleStateImageBehavior = false;
+            this.listView.ItemActivate += new System.EventHandler(this.listView_ItemActivate);
             // 
             // progressBar1
             // 
-            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.progressBar1.Location = new System.Drawing.Point(0, 0);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1474, 23);
+            this.progressBar1.Size = new System.Drawing.Size(1474, 25);
             this.progressBar1.TabIndex = 2;
             // 
             // horizontalSplitter
