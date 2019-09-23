@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace PhotoEditor {
     public partial class MainForm : Form {
-        private CancellationTokenSource cancellationToken;
+        private CancellationTokenSource cancellationTokenSource;
 
         public MainForm() {
             InitializeComponent();
@@ -26,6 +26,10 @@ namespace PhotoEditor {
         }
 
         private async void ListDirectory(TreeView treeView, string path) {
+            progressBar.Style = ProgressBarStyle.Marquee;
+            cancellationTokenSource = new CancellationTokenSource();
+            var token = cancellationTokenSource.Token;
+
             treeView.Nodes.Clear();
 
             var stack = new Stack<TreeNode>();
@@ -55,6 +59,10 @@ namespace PhotoEditor {
                         }
 
                         foreach (var file in directoryInfo.GetFiles()) {
+                            if (token.IsCancellationRequested) {
+                                break;
+                            }
+
                             string fileExtension = file.Extension;
                             fileExtension = fileExtension.ToLower();
 
@@ -84,6 +92,7 @@ namespace PhotoEditor {
                             }
                         }
                         } catch (UnauthorizedAccessException e) {
+                        // Maybe don't bombard user with error messages if they select a bad root 
                         // MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -91,10 +100,17 @@ namespace PhotoEditor {
 
             treeView.Nodes.Add(node);
             treeView.Nodes[0].Expand();
+            progressBar.Style = ProgressBarStyle.Blocks;
         }
 
         private async void selectNewDirectory(DirectoryInfo directoryInfo) {
+            progressBar.Style = ProgressBarStyle.Marquee;
+
+            cancellationTokenSource?.Cancel();
             listView.Items.Clear();
+
+            cancellationTokenSource = new CancellationTokenSource();
+            var token = cancellationTokenSource.Token;
 
             ImageList smallThumbs = new ImageList();
             smallThumbs.ImageSize = new Size(32, 32);
@@ -108,6 +124,10 @@ namespace PhotoEditor {
             await Task.Run(() => {
                 try {
                     foreach (var file in directoryInfo.GetFiles()) {
+                        if (token.IsCancellationRequested) {
+                            break;
+                        }
+
                         string fileExtension = file.Extension;
                         fileExtension = fileExtension.ToLower();
 
@@ -116,8 +136,10 @@ namespace PhotoEditor {
                             MemoryStream ms = new MemoryStream(bytes);
                             Image image = Image.FromStream(ms);
 
-                            smallThumbs.Images.Add(file.FullName, image);
-                            largeThumbs.Images.Add(file.FullName, image);
+                            Invoke((Action)delegate () {
+                                smallThumbs.Images.Add(file.FullName, image);
+                                largeThumbs.Images.Add(file.FullName, image);
+                            });
 
                             ListViewItem item = new ListViewItem {
                                 Text = file.Name,
@@ -129,13 +151,16 @@ namespace PhotoEditor {
                             item.SubItems.Add(file.LastWriteTime.ToString());
                             item.SubItems.Add((file.Length / (float)1024 / (float)1024).ToString() + "mb");
 
-                            listView.Items.Add(item);
+                            Invoke((Action)delegate () {
+                                listView.Items.Add(item);
+                            });
                         }
                     }
                 } catch (UnauthorizedAccessException e) {
                     MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             });
+            progressBar.Style = ProgressBarStyle.Blocks;
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {

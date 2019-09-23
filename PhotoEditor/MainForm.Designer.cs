@@ -38,7 +38,7 @@
             this.treeListSplitter = new System.Windows.Forms.SplitContainer();
             this.treeView = new System.Windows.Forms.TreeView();
             this.listView = new System.Windows.Forms.ListView();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.horizontalSplitter = new System.Windows.Forms.SplitContainer();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.menuStrip1.SuspendLayout();
@@ -73,7 +73,7 @@
             this.toolStripMenuItem1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 38);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 36);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // locateOnDiskToolStripMenuItem
@@ -110,7 +110,7 @@
             this.smallToolStripMenuItem,
             this.largeToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(78, 38);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(78, 36);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // detailsToolStripMenuItem
@@ -141,7 +141,7 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(77, 38);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(77, 36);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
@@ -190,13 +190,15 @@
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.ItemActivate += new System.EventHandler(this.listView_ItemActivate);
             // 
-            // progressBar1
+            // progressBar
             // 
-            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressBar1.Location = new System.Drawing.Point(0, 0);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1474, 25);
-            this.progressBar1.TabIndex = 2;
+            this.progressBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.progressBar.Location = new System.Drawing.Point(0, 0);
+            this.progressBar.Maximum = 250;
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(1474, 25);
+            this.progressBar.Step = 1;
+            this.progressBar.TabIndex = 2;
             // 
             // horizontalSplitter
             // 
@@ -209,7 +211,7 @@
             // 
             // horizontalSplitter.Panel1
             // 
-            this.horizontalSplitter.Panel1.Controls.Add(this.progressBar1);
+            this.horizontalSplitter.Panel1.Controls.Add(this.progressBar);
             this.horizontalSplitter.Panel1MinSize = 15;
             // 
             // horizontalSplitter.Panel2
@@ -267,7 +269,7 @@
         private System.Windows.Forms.ToolStripMenuItem smallToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem largeToolStripMenuItem;
         private System.Windows.Forms.ListView listView;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.SplitContainer horizontalSplitter;
         private System.Windows.Forms.ToolStripMenuItem locateOnDiskToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectRootFolderToolStripMenuItem;
