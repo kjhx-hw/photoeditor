@@ -12,12 +12,23 @@ A simple photo editor using C# and Windows Forms.  The editor can browse a list 
 
 ## Known Bugs
 
-TBA
+NA
 
 ## Extra Credit
 
 * SplitterControl in MainForm
+* "Save As" button in EditorForm
 
 ## Workload Split
 
-TBA
+Agreed 50/50.
+
+**Kyle Huggins**
+* MainForm
+* AboutDialog
+* SplitterControl extra credit
+
+**Noah Furby**
+* EditorForm
+* ProgressScreen
+* "Save As" button extra credit
