@@ -67,7 +67,6 @@
             this.trackBar1.Tag = "";
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar1.Value = 50;
-            this.trackBar1.Scroll += new System.EventHandler(this.TrackBar1_Scroll);
             this.trackBar1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBar1_MouseUp);
             // 
             // textBox2
@@ -91,7 +90,6 @@
             this.textBox1.Size = new System.Drawing.Size(32, 13);
             this.textBox1.TabIndex = 4;
             this.textBox1.Text = "Light";
-            this.textBox1.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             // 
             // textBox3
             // 
@@ -178,7 +176,6 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "EditorForm";
             this.Text = "EditorForm";
-            this.Load += new System.EventHandler(this.EditorForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.photoBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox1.ResumeLayout(false);

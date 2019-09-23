@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
+using System.Drawing.Imaging;
 
 namespace PhotoEditor
 {
     public partial class EditorForm : Form
     {
+        
+
         private CancellationTokenSource cancellationTokenSource;
 
         private Bitmap transformedBitmap { get; set; }
@@ -20,7 +23,6 @@ namespace PhotoEditor
         {
             InitializeComponent();
             transformedBitmap = new Bitmap(@photoLocation);
-            //photoBox.Image = System.Drawing.Image.FromFile(photoLocation);
             photoBox.Image = transformedBitmap;
         }
 
@@ -47,6 +49,7 @@ namespace PhotoEditor
 
                         if (token.IsCancellationRequested)
                             break;
+                        
 
                         if (newRed < 0)
                             newRed = 0;
@@ -63,14 +66,15 @@ namespace PhotoEditor
                         else if (newBlue > 255)
                             newBlue = 255;
 
+                        
                         Color newColor = Color.FromArgb(newRed, newGreen, newBlue);
                         transformedBitmap.SetPixel(x, y, newColor);
                     }
-                    
+
                     Invoke((Action)delegate () { loadingScreen.UpdateProgressBar(1); });
                 }
                 Invoke((Action)delegate () { loadingScreen.Close(); });
-                
+
             });
             Enabled = true;
             Activate();
@@ -99,9 +103,9 @@ namespace PhotoEditor
                         Color newColor = Color.FromArgb(newRed, newGreen, newBlue);
                         transformedBitmap.SetPixel(x, y, newColor);
                     }
-                    loadingScreen.UpdateProgressBar(1);
+                    Invoke((Action)delegate () { loadingScreen.UpdateProgressBar(1); });
                 }
-                loadingScreen.Close();
+                Invoke((Action)delegate () { loadingScreen.Close(); });
             });
             Enabled = true;
             Activate();
@@ -116,7 +120,7 @@ namespace PhotoEditor
             {
                   
                 
-                for (int y = 0; y < transformedBitmap.Height && !token.IsCancellationRequested; y++)
+                for (int y = 0; y < transformedBitmap.Height && !token.IsCancellationRequested && !loadingScreen.CurrentState(); y++)
                 {
                     for (int x = 0; x < transformedBitmap.Width; x++)
                     {
@@ -128,67 +132,47 @@ namespace PhotoEditor
                         total /= 255;
                         if (token.IsCancellationRequested)
                             break;
+                        if (loadingScreen.CurrentState())
+                            break;
                         Color newColor = Color.FromArgb((int)(red * total), (int)(green * total), (int)(total * blue));
                         transformedBitmap.SetPixel(x, y, newColor);
                     }
-                    loadingScreen.UpdateProgressBar(1);
-                    
+                    Invoke((Action)delegate () { loadingScreen.UpdateProgressBar(1); });
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Thread.Sleep(25);
+                        for(int j = 0; j < 100; j++)
+                        {
+                            Application.DoEvents();
+                        }
+                    }
                 }
-                loadingScreen.Close();
-              
+                Invoke((Action)delegate () { loadingScreen.Close(); });
+
             });
         }
 
-        private void EditorForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         async private void ColorPicker(object sender, EventArgs e)
         {
             if(colorDialog1.ShowDialog() == DialogResult.OK)
             {
-                /*                groupBox1.Enabled = false;
-                                button1.Enabled = false;
-                                button2.Enabled = false;
-                                button3.Enabled = false;
-                                Button4.Enabled = false;*/
+                
                 Enabled = false;
                 await ColorChanger(colorDialog1.Color.R, colorDialog1.Color.G, colorDialog1.Color.B);
                 photoBox.Image = transformedBitmap;
                 Enabled = true;
                 Activate();
-                /*                groupBox1.Enabled = true;
-                                button1.Enabled = true;
-                                button2.Enabled = true;
-                                button3.Enabled = true;
-                                Button4.Enabled = true;*/
+                
             }
         }
 
-        async private void TrackBar1_Scroll(object sender, EventArgs e)
-        {
-           
-        }
 
         async private void InvertButton(object sender, EventArgs e)
         {
-            groupBox1.Enabled = false;
-            button1.Enabled = false;
-            button2.Enabled = false;
-            button3.Enabled = false;
-            Button4.Enabled = false;
+          
             await InvertPhoto();
-            groupBox1.Enabled = true;
-            button1.Enabled = true;
-            button2.Enabled = true;
-            button3.Enabled = true;
-            Button4.Enabled = true;
+           
             photoBox.Image = transformedBitmap;
         }
 
@@ -201,7 +185,7 @@ namespace PhotoEditor
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            //Image.Save("myohoto.jpg", ImageFormat.Jpeg);
+            photoBox.Image.Save("myohoto.jpg", ImageFormat.Jpeg);
         }
     }
 }

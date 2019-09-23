@@ -44,6 +44,7 @@
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Menu;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Enabled = false;
             this.textBox1.Location = new System.Drawing.Point(129, 23);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 13);
@@ -77,7 +78,6 @@
             this.MinimizeBox = false;
             this.Name = "ProgressScreen";
             this.Text = "Transforming";
-            this.Load += new System.EventHandler(this.ProgressScreen_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
