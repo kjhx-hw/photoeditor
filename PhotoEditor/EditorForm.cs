@@ -42,11 +42,12 @@ namespace PhotoEditor
             ProgressScreen loadingScreen = new ProgressScreen(0, transformedBitmap.Height);
             cancellationTokenSource = new CancellationTokenSource();
             var token = cancellationTokenSource.Token;
+            Enabled = false;
 
             await Task.Run(() =>
             {
                 
-                Enabled = false;
+                
                 int amount=0;
                 Invoke((Action) delegate () { amount = Convert.ToInt32(2 * (50 - trackBar1.Value) * 0.01 * 255); });
                 for (int y = 0; y < transformedBitmap.Height && !token.IsCancellationRequested && !loadingScreen.CurrentState(); y++)
