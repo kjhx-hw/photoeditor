@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
             this.photoBox = new System.Windows.Forms.PictureBox();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -51,9 +52,10 @@
             this.photoBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.photoBox.Location = new System.Drawing.Point(12, 12);
+            this.photoBox.Location = new System.Drawing.Point(24, 23);
+            this.photoBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.photoBox.Name = "photoBox";
-            this.photoBox.Size = new System.Drawing.Size(416, 236);
+            this.photoBox.Size = new System.Drawing.Size(832, 454);
             this.photoBox.TabIndex = 0;
             this.photoBox.TabStop = false;
             // 
@@ -61,10 +63,11 @@
             // 
             this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.trackBar1.LargeChange = 1;
-            this.trackBar1.Location = new System.Drawing.Point(30, 359);
+            this.trackBar1.Location = new System.Drawing.Point(60, 690);
+            this.trackBar1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.trackBar1.Maximum = 100;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(104, 45);
+            this.trackBar1.Size = new System.Drawing.Size(208, 90);
             this.trackBar1.TabIndex = 1;
             this.trackBar1.Tag = "";
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
@@ -76,9 +79,10 @@
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox2.BackColor = System.Drawing.SystemColors.Menu;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Location = new System.Drawing.Point(30, 340);
+            this.textBox2.Location = new System.Drawing.Point(60, 654);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(32, 13);
+            this.textBox2.Size = new System.Drawing.Size(64, 24);
             this.textBox2.TabIndex = 3;
             this.textBox2.Text = "Dark";
             // 
@@ -87,9 +91,10 @@
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox1.BackColor = System.Drawing.SystemColors.Menu;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(112, 340);
+            this.textBox1.Location = new System.Drawing.Point(224, 654);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(32, 13);
+            this.textBox1.Size = new System.Drawing.Size(64, 24);
             this.textBox1.TabIndex = 4;
             this.textBox1.Text = "Light";
             // 
@@ -98,9 +103,10 @@
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox3.BackColor = System.Drawing.SystemColors.Menu;
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox3.Location = new System.Drawing.Point(49, 380);
+            this.textBox3.Location = new System.Drawing.Point(98, 731);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(71, 13);
+            this.textBox3.Size = new System.Drawing.Size(142, 24);
             this.textBox3.TabIndex = 5;
             this.textBox3.Text = "Brightness";
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -108,9 +114,10 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(189, 361);
+            this.button1.Location = new System.Drawing.Point(378, 694);
+            this.button1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(150, 44);
             this.button1.TabIndex = 6;
             this.button1.Text = "Color...";
             this.button1.UseVisualStyleBackColor = true;
@@ -119,9 +126,10 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(291, 415);
+            this.button2.Location = new System.Drawing.Point(582, 798);
+            this.button2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(150, 44);
             this.button2.TabIndex = 7;
             this.button2.Text = "Save";
             this.button2.UseVisualStyleBackColor = true;
@@ -131,9 +139,10 @@
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button3.Location = new System.Drawing.Point(373, 415);
+            this.button3.Location = new System.Drawing.Point(746, 798);
+            this.button3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(150, 44);
             this.button3.TabIndex = 8;
             this.button3.Text = "Cancel";
             this.button3.UseVisualStyleBackColor = true;
@@ -141,9 +150,10 @@
             // Button4
             // 
             this.Button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Button4.Location = new System.Drawing.Point(319, 35);
+            this.Button4.Location = new System.Drawing.Point(638, 67);
+            this.Button4.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Button4.Name = "Button4";
-            this.Button4.Size = new System.Drawing.Size(75, 23);
+            this.Button4.Size = new System.Drawing.Size(150, 44);
             this.Button4.TabIndex = 9;
             this.Button4.Text = "Invert";
             this.Button4.UseVisualStyleBackColor = true;
@@ -155,18 +165,21 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.Button4);
-            this.groupBox1.Location = new System.Drawing.Point(12, 324);
+            this.groupBox1.Location = new System.Drawing.Point(24, 623);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(436, 85);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox1.Size = new System.Drawing.Size(872, 163);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             // 
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(210, 415);
+            this.button5.Location = new System.Drawing.Point(420, 798);
+            this.button5.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.Size = new System.Drawing.Size(150, 44);
             this.button5.TabIndex = 11;
             this.button5.Text = "Save As";
             this.button5.UseVisualStyleBackColor = true;
@@ -174,10 +187,10 @@
             // 
             // EditorForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(460, 450);
+            this.ClientSize = new System.Drawing.Size(920, 865);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -188,6 +201,8 @@
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.photoBox);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "EditorForm";
             this.Text = "EditorForm";
             ((System.ComponentModel.ISupportInitialize)(this.photoBox)).EndInit();
