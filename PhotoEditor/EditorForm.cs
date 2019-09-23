@@ -269,6 +269,7 @@ namespace PhotoEditor
                         break;
                 }
             }
+            this.Close();
             }
         }
 }
