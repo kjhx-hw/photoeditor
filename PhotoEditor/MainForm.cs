@@ -7,11 +7,14 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PhotoEditor {
     public partial class MainForm : Form {
+        private CancellationTokenSource cancellationToken;
+
         public MainForm() {
             InitializeComponent();
 
@@ -22,7 +25,7 @@ namespace PhotoEditor {
             ListDirectory(treeView, Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
         }
 
-        private void ListDirectory(TreeView treeView, string path) {
+        private async void ListDirectory(TreeView treeView, string path) {
             treeView.Nodes.Clear();
 
             var stack = new Stack<TreeNode>();
@@ -39,47 +42,58 @@ namespace PhotoEditor {
             listView.SmallImageList = smallThumbs;
             listView.LargeImageList = largeThumbs;
 
-            while (stack.Count > 0) {
-                var currentNode = stack.Pop();
-                var directoryInfo = (DirectoryInfo)currentNode.Tag;
-                foreach (var directory in directoryInfo.GetDirectories()) {
-                    var childDirectoryNode = new TreeNode(directory.Name) { Tag = directory };
-                    currentNode.Nodes.Add(childDirectoryNode);
-                    stack.Push(childDirectoryNode);
-                }
+            await Task.Run(() => {
+                while (stack.Count > 0) {
+                    var currentNode = stack.Pop();
+                    var directoryInfo = (DirectoryInfo)currentNode.Tag;
 
-                foreach (var file in directoryInfo.GetFiles()) {
-                    string fileExtension = file.Extension;
-                    fileExtension = fileExtension.ToLower();
+                    try {
+                        foreach (var directory in directoryInfo.GetDirectories()) {
+                            var childDirectoryNode = new TreeNode(directory.Name) { Tag = directory };
+                            currentNode.Nodes.Add(childDirectoryNode);
+                            stack.Push(childDirectoryNode);
+                        }
 
-                    if (file.Extension == ".jpg" || file.Extension == ".jpeg") {
-                        byte[] bytes = System.IO.File.ReadAllBytes(file.FullName);
-                        MemoryStream ms = new MemoryStream(bytes);
-                        Image image = Image.FromStream(ms);
+                        foreach (var file in directoryInfo.GetFiles()) {
+                            string fileExtension = file.Extension;
+                            fileExtension = fileExtension.ToLower();
 
-                        smallThumbs.Images.Add(file.FullName, image);
-                        largeThumbs.Images.Add(file.FullName, image);
+                            if (file.Extension == ".jpg" || file.Extension == ".jpeg") {
+                                byte[] bytes = System.IO.File.ReadAllBytes(file.FullName);
+                                MemoryStream ms = new MemoryStream(bytes);
+                                Image image = Image.FromStream(ms);
 
-                        ListViewItem item = new ListViewItem {
-                            Text = file.Name,
-                            Name = file.Name,
-                            ToolTipText = file.FullName,
-                            ImageKey = file.FullName
-                        };
+                                Invoke((Action)delegate () {
+                                    smallThumbs.Images.Add(file.FullName, image);
+                                    largeThumbs.Images.Add(file.FullName, image);
+                                });
 
-                        item.SubItems.Add(file.LastWriteTime.ToString());
-                        item.SubItems.Add((file.Length / (float)1024 / (float)1024).ToString() + "mb");
+                                ListViewItem item = new ListViewItem {
+                                    Text = file.Name,
+                                    Name = file.Name,
+                                    ToolTipText = file.FullName,
+                                    ImageKey = file.FullName
+                                };
 
-                        listView.Items.Add(item);
+                                item.SubItems.Add(file.LastWriteTime.ToString());
+                                item.SubItems.Add((file.Length / (float)1024 / (float)1024).ToString() + "mb");
+
+                                Invoke((Action)delegate () {
+                                    listView.Items.Add(item);
+                                });
+                            }
+                        }
+                        } catch (UnauthorizedAccessException e) {
+                        // MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-            }
+            });
 
             treeView.Nodes.Add(node);
             treeView.Nodes[0].Expand();
         }
 
-        private void selectNewDirectory(DirectoryInfo directoryInfo) {
+        private async void selectNewDirectory(DirectoryInfo directoryInfo) {
             listView.Items.Clear();
 
             ImageList smallThumbs = new ImageList();
@@ -91,31 +105,37 @@ namespace PhotoEditor {
             listView.SmallImageList = smallThumbs;
             listView.LargeImageList = largeThumbs;
 
-            foreach (var file in directoryInfo.GetFiles()) {
-                string fileExtension = file.Extension;
-                fileExtension = fileExtension.ToLower();
+            await Task.Run(() => {
+                try {
+                    foreach (var file in directoryInfo.GetFiles()) {
+                        string fileExtension = file.Extension;
+                        fileExtension = fileExtension.ToLower();
 
-                if (file.Extension == ".jpg" || file.Extension == ".jpeg") {
-                    byte[] bytes = System.IO.File.ReadAllBytes(file.FullName);
-                    MemoryStream ms = new MemoryStream(bytes);
-                    Image image = Image.FromStream(ms);
+                        if (file.Extension == ".jpg" || file.Extension == ".jpeg") {
+                            byte[] bytes = System.IO.File.ReadAllBytes(file.FullName);
+                            MemoryStream ms = new MemoryStream(bytes);
+                            Image image = Image.FromStream(ms);
 
-                    smallThumbs.Images.Add(file.FullName, image);
-                    largeThumbs.Images.Add(file.FullName, image);
+                            smallThumbs.Images.Add(file.FullName, image);
+                            largeThumbs.Images.Add(file.FullName, image);
 
-                    ListViewItem item = new ListViewItem {
-                        Text = file.Name,
-                        Name = file.Name,
-                        ToolTipText = file.FullName,
-                        ImageKey = file.FullName
-                    };
+                            ListViewItem item = new ListViewItem {
+                                Text = file.Name,
+                                Name = file.Name,
+                                ToolTipText = file.FullName,
+                                ImageKey = file.FullName
+                            };
 
-                    item.SubItems.Add(file.LastWriteTime.ToString());
-                    item.SubItems.Add((file.Length / (float)1024 / (float)1024).ToString() + "mb");
+                            item.SubItems.Add(file.LastWriteTime.ToString());
+                            item.SubItems.Add((file.Length / (float)1024 / (float)1024).ToString() + "mb");
 
-                    listView.Items.Add(item);
+                            listView.Items.Add(item);
+                        }
+                    }
+                } catch (UnauthorizedAccessException e) {
+                    MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            });
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
