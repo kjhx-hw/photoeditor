@@ -160,11 +160,13 @@
             // treeListSplitter.Panel1
             // 
             this.treeListSplitter.Panel1.Controls.Add(this.treeView);
+            this.treeListSplitter.Panel1MinSize = 100;
             // 
             // treeListSplitter.Panel2
             // 
             this.treeListSplitter.Panel2.Controls.Add(this.listView);
-            this.treeListSplitter.Size = new System.Drawing.Size(1474, 863);
+            this.treeListSplitter.Panel2MinSize = 300;
+            this.treeListSplitter.Size = new System.Drawing.Size(1474, 873);
             this.treeListSplitter.SplitterDistance = 400;
             this.treeListSplitter.SplitterWidth = 10;
             this.treeListSplitter.TabIndex = 1;
@@ -175,7 +177,7 @@
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(400, 863);
+            this.treeView.Size = new System.Drawing.Size(400, 873);
             this.treeView.TabIndex = 0;
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
             // 
@@ -185,7 +187,7 @@
             this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(0, 0);
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(1064, 863);
+            this.listView.Size = new System.Drawing.Size(1064, 873);
             this.listView.TabIndex = 0;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.ItemActivate += new System.EventHandler(this.listView_ItemActivate);
@@ -196,7 +198,7 @@
             this.progressBar.Location = new System.Drawing.Point(0, 0);
             this.progressBar.Maximum = 250;
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(1474, 25);
+            this.progressBar.Size = new System.Drawing.Size(1474, 15);
             this.progressBar.Step = 1;
             this.progressBar.TabIndex = 2;
             // 
@@ -217,8 +219,9 @@
             // horizontalSplitter.Panel2
             // 
             this.horizontalSplitter.Panel2.Controls.Add(this.treeListSplitter);
+            this.horizontalSplitter.Panel2MinSize = 200;
             this.horizontalSplitter.Size = new System.Drawing.Size(1474, 889);
-            this.horizontalSplitter.SplitterDistance = 25;
+            this.horizontalSplitter.SplitterDistance = 15;
             this.horizontalSplitter.SplitterWidth = 1;
             this.horizontalSplitter.TabIndex = 3;
             // 
@@ -234,10 +237,9 @@
             this.ClientSize = new System.Drawing.Size(1474, 929);
             this.Controls.Add(this.horizontalSplitter);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.HelpButton = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(1500, 1000);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Photo Editor";
