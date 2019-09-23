@@ -237,6 +237,38 @@ namespace PhotoEditor
         {
             Console.WriteLine(thing);
             currentPhoto.Save(thing, ImageFormat.Jpeg);
+            this.Close();
         }
-    }
+
+        private void Button5_Click(object sender, EventArgs e)
+        {
+
+            //https://docs.microsoft.com/en-us/dotnet/framework/winforms/controls/how-to-save-files-using-the-savefiledialog-component
+            saveFileDialog1.Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif";
+            saveFileDialog1.Title = "Save an Image File";
+            saveFileDialog1.ShowDialog();
+
+           
+            if (saveFileDialog1.FileName != "")
+            {
+                switch (saveFileDialog1.FilterIndex)
+                {
+                    case 1:
+                        currentPhoto.Save(saveFileDialog1.FileName,
+                          System.Drawing.Imaging.ImageFormat.Jpeg);
+                        break;
+
+                    case 2:
+                        currentPhoto.Save(saveFileDialog1.FileName,
+                          System.Drawing.Imaging.ImageFormat.Bmp);
+                        break;
+
+                    case 3:
+                        currentPhoto.Save(saveFileDialog1.FileName,
+                          System.Drawing.Imaging.ImageFormat.Gif);
+                        break;
+                }
+            }
+            }
+        }
 }
