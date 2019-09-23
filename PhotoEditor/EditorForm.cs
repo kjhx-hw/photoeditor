@@ -9,21 +9,32 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace PhotoEditor
 {
     public partial class EditorForm : Form
     {
-        
 
+        bool cancel { get; set; } = false;
         private CancellationTokenSource cancellationTokenSource;
 
         private Bitmap transformedBitmap { get; set; }
+        private Bitmap currentPhoto { get; set; }
+        string thing;
         public EditorForm(string photoLocation)
         {
             InitializeComponent();
-            transformedBitmap = new Bitmap(@photoLocation);
+
+            byte[] bytes = System.IO.File.ReadAllBytes(photoLocation);
+            MemoryStream ms = new MemoryStream(bytes);
+            Image image = Image.FromStream(ms);
+
+
+            transformedBitmap = new Bitmap(image);
             photoBox.Image = transformedBitmap;
+            currentPhoto = new Bitmap(image);
+            thing = photoLocation;
         }
 
         async private Task Slider()
@@ -38,7 +49,7 @@ namespace PhotoEditor
                 Enabled = false;
                 int amount=0;
                 Invoke((Action) delegate () { amount = Convert.ToInt32(2 * (50 - trackBar1.Value) * 0.01 * 255); });
-                for (int y = 0; y < transformedBitmap.Height && !token.IsCancellationRequested; y++)
+                for (int y = 0; y < transformedBitmap.Height && !token.IsCancellationRequested && !loadingScreen.CurrentState(); y++)
                 {
                     for (int x = 0; x < transformedBitmap.Width; x++)
                     {
@@ -48,8 +59,16 @@ namespace PhotoEditor
                         int newBlue = color.B - amount;
 
                         if (token.IsCancellationRequested)
+                        {
+                            this.cancel = true;
                             break;
-                        
+                        }
+                        if (loadingScreen.CurrentState())
+                        {
+                            this.cancel = true;
+                            break;
+                        }
+
 
                         if (newRed < 0)
                             newRed = 0;
@@ -73,6 +92,8 @@ namespace PhotoEditor
 
                     Invoke((Action)delegate () { loadingScreen.UpdateProgressBar(1); });
                 }
+                if (loadingScreen.CurrentState())
+                    this.cancel = true;
                 Invoke((Action)delegate () { loadingScreen.Close(); });
 
             });
@@ -85,10 +106,11 @@ namespace PhotoEditor
             ProgressScreen loadingScreen = new ProgressScreen(0, transformedBitmap.Height);
             cancellationTokenSource = new CancellationTokenSource();
             var token = cancellationTokenSource.Token;
+            Enabled = false;
+
             await Task.Run(() => 
             {
-                Enabled = false;   
-                for (int y = 0; y < transformedBitmap.Height && !token.IsCancellationRequested; y++)
+                for (int y = 0; y < transformedBitmap.Height && !token.IsCancellationRequested && !loadingScreen.CurrentState(); y++)
                 {
                     for (int x = 0; x < transformedBitmap.Width; x++)
                     {
@@ -98,13 +120,24 @@ namespace PhotoEditor
                         int newBlue = Math.Abs(color.B - 255);
 
                         if (token.IsCancellationRequested)
+                        {
+                            this.cancel = true;
                             break;
+                        }
+                        if (loadingScreen.CurrentState())
+                        {
+                            this.cancel = true;
+                            break;
+                        }
 
                         Color newColor = Color.FromArgb(newRed, newGreen, newBlue);
                         transformedBitmap.SetPixel(x, y, newColor);
                     }
                     Invoke((Action)delegate () { loadingScreen.UpdateProgressBar(1); });
+
                 }
+                if (loadingScreen.CurrentState())
+                    this.cancel = true;
                 Invoke((Action)delegate () { loadingScreen.Close(); });
             });
             Enabled = true;
@@ -131,24 +164,23 @@ namespace PhotoEditor
                         float total = (newRed + newGreen + newBlue) / 3;
                         total /= 255;
                         if (token.IsCancellationRequested)
+                        {
+                            this.cancel = true;
                             break;
+                        }
                         if (loadingScreen.CurrentState())
+                        {
+                            this.cancel = true;
                             break;
+                        }
                         Color newColor = Color.FromArgb((int)(red * total), (int)(green * total), (int)(total * blue));
                         transformedBitmap.SetPixel(x, y, newColor);
                     }
-                    Invoke((Action)delegate () { loadingScreen.UpdateProgressBar(1); });
-                    for (int i = 0; i < 10; i++)
-                    {
-                        Thread.Sleep(25);
-                        for(int j = 0; j < 100; j++)
-                        {
-                            Application.DoEvents();
-                        }
-                    }
+                    
                 }
+                if (loadingScreen.CurrentState())
+                    this.cancel = true;
                 Invoke((Action)delegate () { loadingScreen.Close(); });
-
             });
         }
 
@@ -159,8 +191,15 @@ namespace PhotoEditor
             {
                 
                 Enabled = false;
+                cancel = false;
                 await ColorChanger(colorDialog1.Color.R, colorDialog1.Color.G, colorDialog1.Color.B);
-                photoBox.Image = transformedBitmap;
+                if(cancel != true)
+                {
+                    photoBox.Image = transformedBitmap;
+                    currentPhoto = transformedBitmap;
+                }
+                else
+                    photoBox.Image = currentPhoto;
                 Enabled = true;
                 Activate();
                 
@@ -170,22 +209,34 @@ namespace PhotoEditor
 
         async private void InvertButton(object sender, EventArgs e)
         {
-          
+            cancel = false;
             await InvertPhoto();
-           
-            photoBox.Image = transformedBitmap;
+            if (cancel != true)
+            {
+                photoBox.Image = transformedBitmap;
+                currentPhoto = transformedBitmap;
+            }
+            else
+                photoBox.Image = currentPhoto;
         }
 
         async private void TrackBar1_MouseUp(object sender, MouseEventArgs e)
         {
-            
+            cancel = false;
             await Slider();
-            photoBox.Image = transformedBitmap;
+            if(cancel != true)
+            {
+                photoBox.Image = transformedBitmap;
+                currentPhoto = transformedBitmap;
+            }
+            else
+                photoBox.Image = currentPhoto;
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            photoBox.Image.Save("myohoto.jpg", ImageFormat.Jpeg);
+            Console.WriteLine(thing);
+            currentPhoto.Save(thing, ImageFormat.Jpeg);
         }
     }
 }
